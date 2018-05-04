@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="#">Database università</a>
+  <button class="navbar-toggler d-lg-none" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarsExampleDefault" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault" [ngbCollapse]="isCollapsed">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <button type="button" class="btn btn-outline-secondary" routerLink="/Studenti" routerLinkActive="btn-outline-success"  style="margin-left:30px;width:150px"  >Studenti</button>
+      </li>
+      <li class="nav-item">
+        <button type="button" class="btn btn-outline-secondary"  routerLink="/Docenti" routerLinkActive="btn-outline-success" style="margin-left:30px;width:150px"   >Docenti</button>
+      </li>
+      <li class="nav-item">
+            <button type="button" class="btn btn-outline-secondary" routerLink="/Dipartimenti" routerLinkActive="btn-outline-success"  style="margin-left:30px;width:150px"   >Dipartimenti</button>
+      </li>
+      <li class="nav-item">
+            <button type="button" class="btn btn-outline-secondary" routerLink="/Scuole" routerLinkActive="btn-outline-success" style="margin-left:30px;width:150px"  >Scuole</button>
+      </li>
+      <li class="nav-item">
+        <button type="button" class="btn btn-outline-secondary" routerLink="/Corsi" routerLinkActive="btn-outline-success" style="margin-left:30px;width:150px"  >Corsi</button>
+  </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <router-outlet></router-outlet>
+</div>
+<!-- <div class="container-fluid">
+<div *ngIf="scelta == 'studenti'">
+    <app-studente-page></app-studente-page>
+</div>
+<div *ngIf="scelta == 'docenti';">
+  <app-docente-page></app-docente-page>
+</div>
+<div *ngIf="scelta == 'dipartimenti';">
+  <app-dipartimento-page></app-dipartimento-page>
+</div>
+<div *ngIf="scelta == 'scuole';">
+  <app-scuola-page></app-scuola-page>
+</div> -->

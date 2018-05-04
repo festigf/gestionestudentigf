@@ -1,0 +1,166 @@
+drop database if exists dbstudenti;
+-- Creazione del database STUDENTI
+create database dbstudenti;
+use dbstudenti;
+
+-- Creazione tabella DIPARTIMENTO
+
+create table dipartimento (
+Id int not null auto_increment primary key,
+Nome char(30) not null
+) engine=innodb;
+
+-- Creazione tabella CORSO LAUREA
+
+create table corsoLaurea (
+Id int not null auto_increment key,
+Nome char(30),
+Id_dipartimento int,
+Area int,
+foreign key (Id_dipartimento) references dipartimento(Id)
+) engine=innodb;
+
+-- Creazione tabella STUDENTE
+
+create table studente (
+Matricola char(10) not null primary key,
+Nome char(20),
+Cognome char(30) not null,
+Email char(30),
+Data_nascita datetime,
+Comune_nascita char(30),
+Telefono char(15),
+Id_laurea int,
+foreign key (Id_laurea) references corsoLaurea(Id)
+) engine=innodb;
+
+-- Creazione tabella DOCENTE
+
+create table docente (
+Id int not null auto_increment primary key,
+Nome char(30),
+Cognome char(30) not null,
+Email char(40)
+) engine=innodb;
+
+-- Creazione tabella CORSO
+
+create table corso (
+Sigla char(10) not null primary key,
+Titolo char(50) not null,
+Id_docente int,
+Ssd char(10),
+Cfu int,
+foreign key (Id_docente) references docente(Id)
+) engine=innodb;
+
+-- Creazione tabella ESAME
+
+create table esame (
+Matricola_studente char(10) not null,
+Sigla_corso char(10) not null,
+Anno int,
+Voto int,
+primary key (Matricola_studente, Sigla_corso),
+foreign key (Matricola_studente) references studente(Matricola)
+on update cascade on delete cascade,
+foreign key (Sigla_corso) references corso(Sigla) on update cascade on delete restrict
+) engine=innodb;
+
+-- Creazione tabella LINGUA
+
+create table lingua (
+Id int not null auto_increment primary key,
+Nome char(30)
+) engine=innodb;
+
+-- Creazione tabella CONOSCENZA LINGUA
+
+create table conoscenzaLingua (
+Matricola_studente char(10) not null,
+Id_lingua int,
+Scritto int,
+Orale int,
+primary key (Matricola_studente, Id_lingua),
+foreign key (Matricola_studente) references studente(Matricola),
+foreign key (Id_lingua) references lingua(Id)
+) engine=innodb;
+
+-- Creazione tabella SCUOLA
+
+create table scuola (
+Id int not null auto_increment primary key,
+Nome char(40) not null,
+Citta char(40) not null,
+Titolo char(40) not null
+) engine=innodb;
+
+-- Creazione tabella Titolo STUDIO
+
+create table TitoloStudio (
+Matricola_studente char(10) not null,
+Id_scuola int,
+Voto int,
+primary key (Matricola_studente, Id_scuola),
+foreign key (Matricola_studente) references studente(Matricola),
+foreign key (Id_scuola) references scuola(Id)
+) engine=innodb;
+
+-- Creazione Procedure
+
+DROP PROCEDURE IF EXISTS getData;
+DELIMITER $$
+CREATE PROCEDURE getData(  
+ StringQuery varchar(300),
+ pageIndex INT,  
+ pageSize INT,
+ OUT nRows int, 
+ OUT nPages int 
+)
+Begin  
+    set @sql_text=concat(StringQuery ," limit ", pageSize, " offset ", pageSize*(pageIndex-1), " ;");
+	PREPARE stmt FROM @sql_text;
+	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
+    set @sql_text=concat("SELECT count(*), ceil((count(*)/",pageSize,"))  INTO @nrows, @nPages  FROM ", tableName , " ;");
+	PREPARE stmt FROM @sql_text;
+	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
+    set nrows=@nrows;
+	set nPages=@nPages;
+END$$
+DELIMITER ;
+
+-- Creazione Procedure
+
+DROP PROCEDURE IF EXISTS getDataStudenti;
+DELIMITER $$
+CREATE PROCEDURE getDataStudenti(  
+ pageIndex INT,  
+ pageSize INT,
+ OUT nRows int, 
+ OUT nPages int 
+)
+Begin  
+    set @sql_text=concat("SELECT Matricola, Nome, Cognome, Email, Comune_nascita, Telefono, Id_laurea, DATE_FORMAT(Data_nascita, '%d-%m-%Y') AS Data_nascita FROM studente" ," limit ", pageSize, " offset ", pageSize*(pageIndex-1), " ;");
+	PREPARE stmt FROM @sql_text;
+	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
+    set @sql_text=concat("SELECT count(*), ceil((count(*)/",pageSize,"))  INTO @nrows, @nPages  FROM  studente ;");
+	PREPARE stmt FROM @sql_text;
+	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
+    set nrows=@nrows;
+	set nPages=@nPages;
+END$$
+DELIMITER ;
+
+-- VIEW
+CREATE VIEW TuttiCorsi AS
+SELECT corso.*, CONCAT(docente.nome, " " , docente.cognome) as Nome FROM dbstudenti.corso, dbstudenti.docente
+where corso.Id_docente = docente.Id ;
+
+CREATE VIEW EsamiStudente AS
+
+
+SELECT Sigla, Titolo, Anno, Cfu, Voto, Matricola_studente as Matricola  FROM dbstudenti.esame, dbstudenti.corso where esame.Sigla_corso = corso.Sigla;
