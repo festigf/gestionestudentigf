@@ -1,0 +1,134 @@
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col-md-6" style="margin-bottom:20px">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th colspan="2" style="text-align:center">Informazioni studente</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let item of studenteCompleto1">
+                <tr>
+                    <th class="table-active" style="width:40%">Matricola</th>
+                    <td style="width:60%">{{item.Matricola}}</td>
+                </tr>
+                <tr>
+                    <th class="table-active">Nome</th>
+                    <td>{{item.Nome}}</td>
+                </tr>
+                <tr>
+                    <th class="table-active">Cognome</th>
+                    <td>{{item.Cognome}}</td>
+                </tr>
+                <tr>
+                    <th class="table-active">Email</th>
+                    <td>{{item.Email}}</td>
+                </tr>
+                <tr>
+                    <th class="table-active">Comune di nascita</th>
+                    <td>{{item.Comune_nascita}}</td>
+                </tr>
+                <tr>
+                    <th class="table-active">Data di nascita</th>
+                    <td>{{item.Data_nascita}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th colspan="4" style="text-align:center">Conoscenza lingue</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th style="width:40%" class="table-active">Lingua</th>
+                    <th style="width:20%" class="table-active">Voto Orale</th>
+                    <th style="width:20%" class="table-active">Voto Scritto</th>
+                    <th style="width:20%" class="table-active"></th>
+                </tr>
+                <tr *ngIf="LunghezzaListaLingueStudente == 0">
+                    <th colspan="6" style="text-align:center">Nessuna lingua trovata!</th>
+                </tr>
+                <tr *ngFor="let item of listaLingueStudente">
+                    <td>{{item.Nome}}</td>
+                    <td>{{item.Orale}}</td>
+                    <td>{{item.Scritto}}</td>
+                    <td>
+                        <button type="button" class="btn btn-danger" (click)="OnDel(item.Matricola_studente,item.Id_lingua)"><img style="width:25px;height:25px" src="assets/img/DeleteIco.svg"/></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <div *ngIf="Aggiungi == false">
+            <button type="button" class="btn btn-info btn-lg " (click)="Aggiungi = true">Nuova lingua</button>
+        </div>
+        <div *ngIf="Aggiungi == true">
+                <div class="row" style="margin-left:1%;margin-right:1%">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Cerca</span>
+                        </div>
+                        <input (keyup)="TextBoxChange($event.target.value)"  class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <table class="table table-light">
+                        <tr>
+                            <th style="width:15%;text-align:center">#</th>
+                            <th style="width:35%">Lingua</th>
+                            <th style="width:25%">Orale</th>
+                            <th style="width:25%">Scritto</th>
+                        </tr>
+                        
+                        <tr *ngFor="let item of listaLingue  | paginate: { itemsPerPage:8, currentPage: p} ;let i=index">
+                            <th>
+                                <div style="text-align:center" class="form-check" >
+                                    <input class="form-check-input position-static" type="checkbox" value="{{item.Id}}" aria-label="..." [checked]="item.isChecked" (change)="item.isChecked = !item.isChecked">
+                                </div>
+                            </th>
+                            <td>{{item.Nome}}</td>
+                            <td>
+                                <select class="form-control" (change)="item.Orale = $event.target.value " [disabled]="!item.isChecked">
+                                    <option [selected]="!item.isChecked" disabled hidden></option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" (change)="item.Scritto = $event.target.value " [disabled]="!item.isChecked">
+                                    <option [selected]="!item.isChecked" disabled hidden></option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row">
+                    <div style="text-align:right">
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <!-- <input type="submit" style="width:100%" class="btn btn-success btn-lg" value="Salva"> -->
+                        <button type="button" style="width:100%" class="btn btn-success btn-lg " (click)="AggiungiLingue()">Salva</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" style="width:100%" class="btn btn-danger btn-lg " (click)="AnnullaInsLingue()">Annulla</button>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
