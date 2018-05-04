@@ -11,19 +11,19 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 
 // COMPONENTI:
-import { StudenteDettagliComponent } from './Pages/_STUDENTE/studente-dettagli/studente-dettagli.component';
-import { StudentePageComponent } from './Pages/_STUDENTE/studente-page.component';
-import { DocentePageComponent } from './Pages/_DOCENTE/docente-page.component';
-import { DipartimentoPageComponent } from './Pages/_DIPARTIMENTO/dipartimento-page.component';
-import { DocenteDettagliComponent } from './Pages/_DOCENTE/Docente-dettagli/docente-dettagli.component';
-import { DipartimentoDettagliComponent } from './Pages/_DIPARTIMENTO/Dipartimento-Dettagli/dipartimento-dettagli.component';
-import { ScuolaPageComponent } from './Pages/_SCUOLA/scuola-page.component';
-import { ScuolaDettagliComponent } from './Pages/_SCUOLA/Scuola-Dettagli/scuola-dettagli.component';
-import { PaginationComponent } from './Pages/-COMPONENTI/pagination/pagination.component';
-import { StudenteLinguePageComponent } from './Pages/_STUDENTE/Studente-Lingue/studente-lingue.component';
-import { CorsoPageComponent } from './Pages/_CORSO/corso-page.component';
-import { CorsoDettagliComponent } from './Pages/_CORSO/Corso-Dettagli/corso-dettagli.component';
-import { StudenteEsamiPageComponent } from './Pages/_STUDENTE/Studente-Esami/studente-esami.component';
+import { StudenteDettagliComponent } from './pages/_studente/studente-dettagli/studente-dettagli.component';
+import { StudentePageComponent } from './pages/_studente/studente-page.component';
+import { DocentePageComponent } from './pages/_docente/docente-page.component';
+import { DipartimentoPageComponent } from './pages/_dipartimento/dipartimento-page.component';
+import { DocenteDettagliComponent } from './pages/_docente/docente-dettagli/docente-dettagli.component';
+import { DipartimentoDettagliComponent } from './pages/_dipartimento/dipartimento-dettagli/dipartimento-dettagli.component';
+import { ScuolaPageComponent } from './pages/_scuola/scuola-page.component';
+import { ScuolaDettagliComponent } from './pages/_scuola/scuola-dettagli/scuola-dettagli.component';
+import { PaginationComponent } from './pages/-componenti/pagination/pagination.component';
+import { StudenteLinguePageComponent } from './pages/_studente/studente-lingue/studente-lingue.component';
+import { CorsoPageComponent } from './pages/_corso/corso-page.component';
+import { CorsoDettagliComponent } from './pages/_corso/corso-dettagli/corso-dettagli.component';
+import { StudenteEsamiPageComponent } from './pages/_studente/studente-esami/studente-esami.component';
 
 @NgModule({
   declarations: [

@@ -1,12 +1,12 @@
 import { NgModule }              from '@angular/core';
 import { RouterModule, Routes }  from '@angular/router';
-import { StudentePageComponent } from './Pages/_STUDENTE/studente-page.component';
-import { StudenteLinguePageComponent } from './Pages/_STUDENTE/Studente-Lingue/studente-lingue.component';
-import { ScuolaPageComponent } from './Pages/_SCUOLA/scuola-page.component';
-import { DipartimentoPageComponent } from './Pages/_DIPARTIMENTO/dipartimento-page.component';
-import { DocentePageComponent } from './Pages/_DOCENTE/docente-page.component';
-import { CorsoPageComponent } from './Pages/_CORSO/corso-page.component';
-import { StudenteEsamiPageComponent } from './Pages/_STUDENTE/Studente-Esami/studente-esami.component';
+import { StudentePageComponent } from './pages/_studente/studente-page.component';
+import { StudenteLinguePageComponent } from './pages/_studente/studente-lingue/studente-lingue.component';
+import { ScuolaPageComponent } from './pages/_scuola/scuola-page.component';
+import { DipartimentoPageComponent } from './pages/_dipartimento/dipartimento-page.component';
+import { DocentePageComponent } from './pages/_docente/docente-page.component';
+import { CorsoPageComponent } from './pages/_corso/corso-page.component';
+import { StudenteEsamiPageComponent } from './pages/_studente/studente-esami/studente-esami.component';
 
 
 const appRoutes: Routes = [
